@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from validation import validate_task_title, validate_task_description, validate_due_date
+from task_manager.validation import validate_task_title, validate_task_description, validate_due_date
 
 # Define tasks list
 tasks = []
@@ -46,5 +46,5 @@ def calculate_progress(tasks=tasks):
         return 0
 
     completed = sum(1 for task in tasks if task.get("completed", False))
-    progress = int((completed / total) * 100)
+    progress = (completed / total) * 100
     return progress

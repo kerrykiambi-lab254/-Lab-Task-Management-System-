@@ -1,8 +1,7 @@
 import unittest
 from datetime import datetime, timedelta
 
-import task_utils
-import validation
+from task_manager import task_utils, validate_task_title, validate_task_description, validate_due_date
 
 
 class TaskManagerTests(unittest.TestCase):
@@ -67,19 +66,19 @@ class TaskManagerTests(unittest.TestCase):
         self.assertEqual(task_utils.calculate_progress(), 50)
 
     def test_validate_task_title_and_description(self):
-        self.assertTrue(validation.validate_task_title("Valid title"))
-        self.assertFalse(validation.validate_task_title("   "))
-        self.assertFalse(validation.validate_task_title(123))
+        self.assertTrue(validate_task_title("Valid title"))
+        self.assertFalse(validate_task_title("   "))
+        self.assertFalse(validate_task_title(123))
 
-        self.assertTrue(validation.validate_task_description("Valid description"))
-        self.assertFalse(validation.validate_task_description(""))
-        self.assertFalse(validation.validate_task_description(None))
+        self.assertTrue(validate_task_description("Valid description"))
+        self.assertFalse(validate_task_description(""))
+        self.assertFalse(validate_task_description(None))
 
     def test_validate_due_date(self):
         valid_date = (datetime.today() + timedelta(days=1)).strftime("%Y-%m-%d")
-        self.assertTrue(validation.validate_due_date(valid_date))
-        self.assertFalse(validation.validate_due_date("2020-01-01"))
-        self.assertFalse(validation.validate_due_date("not-a-date"))
+        self.assertTrue(validate_due_date(valid_date))
+        self.assertFalse(validate_due_date("2020-01-01"))
+        self.assertFalse(validate_due_date("not-a-date"))
 
     def test_add_task_invalid_values_raise(self):
         with self.assertRaises(ValueError):
