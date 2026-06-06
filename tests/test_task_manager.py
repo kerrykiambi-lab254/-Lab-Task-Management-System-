@@ -67,18 +67,23 @@ class TaskManagerTests(unittest.TestCase):
 
     def test_validate_task_title_and_description(self):
         self.assertTrue(validate_task_title("Valid title"))
-        self.assertFalse(validate_task_title("   "))
-        self.assertFalse(validate_task_title(123))
+        with self.assertRaises(ValueError):
+            validate_task_title("   ")
+        with self.assertRaises(ValueError):
+            validate_task_title(123)
 
         self.assertTrue(validate_task_description("Valid description"))
-        self.assertFalse(validate_task_description(""))
-        self.assertFalse(validate_task_description(None))
+        with self.assertRaises(ValueError):
+            validate_task_description("")
+        with self.assertRaises(ValueError):
+            validate_task_description(None)
 
     def test_validate_due_date(self):
         valid_date = (datetime.today() + timedelta(days=1)).strftime("%Y-%m-%d")
         self.assertTrue(validate_due_date(valid_date))
-        self.assertFalse(validate_due_date("2020-01-01"))
-        self.assertFalse(validate_due_date("not-a-date"))
+        self.assertTrue(validate_due_date("2024-05-24"))
+        with self.assertRaises(ValueError):
+            validate_due_date("not-a-date")
 
     def test_add_task_invalid_values_raise(self):
         with self.assertRaises(ValueError):

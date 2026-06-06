@@ -7,12 +7,9 @@ tasks = []
 
 # Implement add_task function
 def add_task(title, description, due_date):
-    if not validate_task_title(title):
-        raise ValueError("Invalid task title. Please provide a non-empty title.")
-    if not validate_task_description(description):
-        raise ValueError("Invalid task description. Please provide a non-empty description.")
-    if not validate_due_date(due_date):
-        raise ValueError("Invalid due date. Please use YYYY-MM-DD and a current or future date.")
+    validate_task_title(title)
+    validate_task_description(description)
+    validate_due_date(due_date)
 
     task = {
         "title": title.strip(),
